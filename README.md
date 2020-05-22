@@ -16,7 +16,7 @@ THEN YOU'RE DONE, GO STAR [swift5-module-template](https://github.com/fulldecent
 ----
 
 # 🚧 Under construction 🚧
-**This project is a work-in-progress. I plan to make destructive changes to the git history up until a 1.0 release, so use before that time is not advised!**
+**This project is a work-in-progress. I plan to make destructive changes to the git history up until a 1.0 release, so relying on this code before that time is not advised!**
 
 # NoiseKit
 
