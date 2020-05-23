@@ -8,8 +8,8 @@
 
 
 import Metal
-import UIKit
 import simd
+import CoreImage
 
 
 
@@ -33,7 +33,7 @@ public protocol AHNTextureProvider: class{
   
   
   ///- returns: A `UIImage` created from the output `MTLTexture` provided by the `texture()` function.
-  func uiImage() -> UIImage?
+  func uiImage() -> Image?
   
   
   
@@ -123,13 +123,25 @@ extension AHNTextureProvider{
   
   
   
+//  ///- returns: A UIImage created from the output `MTLTexture` provided by the `texture()` function.
+//  public func uiImage() -> Image?{
+//    if !canUpdate(){ return nil }
+//    guard let texture = texture(),
+//    let ciImage = CIImage(mtlTexture: texture, options: nil),
+//      let cgImage = ciImage.cgImage else { return nil }
+//
+//    return Image(cgImage: cgImage, size: NSSize(width: texture.width, height: texture.height))
+//  }
   ///- returns: A UIImage created from the output `MTLTexture` provided by the `texture()` function.
-  public func uiImage() -> UIImage?{
+  public func cgImage() -> CGImage? {
     if !canUpdate(){ return nil }
-    guard let texture = texture() else { return nil }
-    return UIImage.imageWithMTLTexture(texture)
+    guard let texture = texture(),
+      let ciImage = CIImage(mtlTexture: texture, options: nil),
+      let cgImage = ciImage.cgImage else { return nil }
+    
+    return cgImage
   }
-  
+
   
   
   /**

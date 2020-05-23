@@ -6,13 +6,29 @@
 //  Copyright © 2016 Andrew Heard. All rights reserved.
 //
 
+#if os(macOS)
+import AppKit
+  public typealias Color = NSColor
+  public typealias Image = NSImage
+#else
 import UIKit
+public typealias Color = UIColor
+public typealias Image = UIImage
+#endif
+
+//#if os(macOS)
+//import AppKit
+//typealias Image = NSImage
+//#elseif os(iOS) || os(tvOS) || os(watchOS)
+//import UIKit
+//typealias Image = UIImage
+//#endif
 
 
-extension UIImage{
+extension Image {
   
   ///Converts the input `MTLTexture` into a UIImage.
-  static func imageWithMTLTexture(_ texture: MTLTexture) -> UIImage{
+  static func imageWithMTLTexture(_ texture: MTLTexture) -> Image {
     assert(texture.pixelFormat == .rgba8Unorm, "Pixel format of texture must be MTLPixelFormatBGRA8Unorm to create UIImage")
     
     let imageByteCount: size_t = texture.width * texture.height * 4
@@ -48,7 +64,11 @@ extension UIImage{
       shouldInterpolate: false,
       intent: renderingIntent)
     
-    let image = UIImage(cgImage: imageRef!, scale: 0.0, orientation: UIImage.Orientation.downMirrored)
+    #if os(macOS)
+    let image = Image(cgImage: imageRef!, size: CGSize(width: texture.width, height: texture.height))
+    #elseif os(iOS) || os(tvOS) || os(watchOS)
+    let image = Image(cgImage: imageRef!, scale: 0.0, orientation: Image.Orientation.downMirrored)
+    #endif
     return image
   }
 }

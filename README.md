@@ -48,4 +48,4 @@ This project is a fork of the [AHNoise project](https://github.com/AndyHeardApps
 
 ## License
 
-NoiseKit is available under the MIT license. See [the LICENSE file](LICENSE) for more information.
+NoiseKit is available under the Unlicense (public domain) license. See [the LICENSE file](LICENSE) for more information.

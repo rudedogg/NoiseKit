@@ -7,7 +7,6 @@
 //
 
 
-import UIKit
 import Metal
 import simd
 
@@ -55,7 +54,7 @@ open class AHNModifierColour: AHNModifier {
   
   
   ///The colour to apply to the input. Do not set directly, use the `colours` property.
-  fileprivate var _colours: [UIColor] = []{
+  fileprivate var _colours: [Color] = []{
     didSet{
       dirty = true
     }
@@ -82,9 +81,9 @@ open class AHNModifierColour: AHNModifier {
   
   
   ///The colour to apply to the input, with associated positions and intensities.
-  open var colours: [(colour: UIColor, position: Float, intensity: Float)]{
+  open var colours: [(colour: Color, position: Float, intensity: Float)]{
     get{
-      var tuples: [(colour: UIColor, position: Float, intensity: Float)] = []
+      var tuples: [(colour: Color, position: Float, intensity: Float)] = []
       for (i, colour) in _colours.enumerated(){
         let tuple = (colour, _positions[i], _intensities[i])
         tuples.append(tuple)
@@ -95,10 +94,10 @@ open class AHNModifierColour: AHNModifier {
       var newValue = newValue
       defaultsUsed = false
       if newValue.count == 0{
-        newValue = [(UIColor.white, 0.5, 0.0)]
+        newValue = [(Color.white, 0.5, 0.0)]
         defaultsUsed = true
       }
-      var colours: [UIColor] = []
+      var colours: [Color] = []
       var positions: [Float] = []
       var intensities: [Float] = []
       for tuple in newValue{
@@ -218,7 +217,7 @@ open class AHNModifierColour: AHNModifier {
   ///Organise the colours, positions and intensities arrays.
   fileprivate func organiseColoursInOrder(){
     assert(_positions.count == _colours.count && _colours.count == _intensities.count, "AHNoise: ERROR - Number of colours to use must match the number of positions and intensities.")
-    var tuples: [(colour: UIColor, position: Float, intensity: Float)] = []
+    var tuples: [(colour: Color, position: Float, intensity: Float)] = []
     
     for (i, colour) in _colours.enumerated(){
       let tuple = (colour, _positions[i], _intensities[i])
@@ -227,7 +226,7 @@ open class AHNModifierColour: AHNModifier {
     
     tuples = tuples.sorted(by: { $0.position < $1.position })
     
-    var sortedColours: [UIColor] = []
+    var sortedColours: [Color] = []
     var sortedPositions: [Float] = []
     var sortedIntensities: [Float] = []
     for tuple in tuples{
@@ -243,7 +242,7 @@ open class AHNModifierColour: AHNModifier {
   
   
   ///Add a new colour, with corresponding position and intensity.
-  open func addColour(_ colour: UIColor, position: Float, intensity: Float){
+  open func addColour(_ colour: Color, position: Float, intensity: Float){
     if defaultsUsed{
       colours = [(colour, position, intensity)]
     }else{

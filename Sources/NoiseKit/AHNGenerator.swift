@@ -6,7 +6,7 @@
 //  Copyright © 2016 Andrew Heard. All rights reserved.
 //
 
-//import UIKit
+import Metal
 
 /**
  The general class used to output a procedurally generated texture. This class is not instantiated directly, but is used by various subclasses.

@@ -10,6 +10,7 @@
 import Metal
 import SpriteKit
 import MetalKit
+import CoreImage
 
 
 /**
@@ -137,13 +138,10 @@ open class AHNModifierMapNormal: NSObject, AHNTextureProvider {
     }
     
     
-    guard var image = provider?.uiImage() else { return }
-    guard var ciImage = CIImage(image: image) else { return }
-    ciImage = ciImage.transformed(by: CGAffineTransform(scaleX: 1, y: -1))
-    let ciContext = CIContext(options: nil)
-    image = UIImage(cgImage: ciContext.createCGImage(ciImage, from: ciImage.extent)!)
-    
-    let sprite = SKTexture(image: image)
+    // TODO: This had a transform. May need to still apply it?
+    guard let cgImage = provider?.cgImage() else { return }
+
+    let sprite = SKTexture(cgImage: cgImage)
     
     let normal = sprite.generatingNormalMap(withSmoothness: CGFloat(smoothing), contrast: CGFloat(intensity))
     let loader = MTKTextureLoader(device: context.device)
