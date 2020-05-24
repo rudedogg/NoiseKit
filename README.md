@@ -1,21 +1,7 @@
-# ALMOST DONE :walking_woman: :running_woman: :biking_woman:
-
-Thank you for using Swift 5 Module Template. Before you release your awesome project to the world, complete the following steps.
-
-THIS LIST IS EASY, CHECK IT OFF ONE-BY-ONE BABY! ✔️ ✔️ ✔️
-
- - [ ] Open the project in Xcode and add features to NoiseKit
- - [ ] Make sure you are using Swift 5 (Edit > Convert > To Current Swift Syntax…)
- - [ ] Fix all build errors and warnings, add tests (yes really)
- - [ ] Add a screenshot or AT LEAST some picture below in this README
- - [ ] Delete all this crap up here
- - [ ] Make one release (full steps are in [CONTRIBUTING.md] in case you forget)
-
-THEN YOU'RE DONE, GO STAR [swift5-module-template](https://github.com/fulldecent/swift5-module-template) FOR UPDATES.
-
-----
-
 # 🚧 Under construction 🚧
+## ON HOLD UNTIL WWDC 2020
+**To include the metal shaders in a Swift Package, we need https://github.com/apple/swift-evolution/blob/master/proposals/0271-package-manager-resources.md.** 
+Once Swift 5.3 is released I'll start working on this again. It is close to being usable as a Swift package.
 **This project is a work-in-progress. I plan to make destructive changes to the git history up until a 1.0 release, so relying on this code before that time is not advised!**
 
 # NoiseKit
@@ -34,12 +20,12 @@ To run the example project, clone this repo, and open iOS Example.xcworkspace fr
 
 ## Requirements
 
-- MacOS 10.15+
-- iOS 13+
+- MacOS 10.14+
+- iOS 12+
 
 ## Installation
 
-Add this to your project using Swift Package Manager. In Xcode that is simply: File > Swift Packages > Add Package Dependency... and you're done. Alternative installations options are shown below for legacy projects.
+Add this to your project using Swift Package Manager. In Xcode that is simply: File > Swift Packages > Add Package Dependency... and you're done.
 
 ## Author
 
