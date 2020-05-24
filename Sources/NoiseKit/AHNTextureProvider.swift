@@ -124,14 +124,15 @@ extension AHNTextureProvider{
   
   
 //  ///- returns: A UIImage created from the output `MTLTexture` provided by the `texture()` function.
-//  public func uiImage() -> Image?{
-//    if !canUpdate(){ return nil }
-//    guard let texture = texture(),
-//    let ciImage = CIImage(mtlTexture: texture, options: nil),
-//      let cgImage = ciImage.cgImage else { return nil }
-//
-//    return Image(cgImage: cgImage, size: NSSize(width: texture.width, height: texture.height))
-//  }
+  public func uiImage() -> Image?{
+    if !canUpdate(){ return nil }
+    guard let texture = texture(),
+    let ciImage = CIImage(mtlTexture: texture, options: nil),
+      let cgImage = ciImage.cgImage else { return nil }
+
+    return Image(cgImage: cgImage, size: NSSize(width: texture.width, height: texture.height))
+  }
+
   ///- returns: A UIImage created from the output `MTLTexture` provided by the `texture()` function.
   public func cgImage() -> CGImage? {
     if !canUpdate(){ return nil }
