@@ -15,7 +15,7 @@ public protocol AHNTextureProvider: AnyObject {
   func textureProvider() -> AHNTextureProvider?
 
   /// - returns: A `UIImage` created from the output `MTLTexture` provided by the `texture()` function.
-  func uiImage() -> Image?
+  func uiImage() -> NoiseKit.Image?
 
   /// - returns: The MTLSize of the the output `MTLTexture`. If no size has been explicitly set, the default value returned is `128x128` pixels.
   func textureSize() -> MTLSize
