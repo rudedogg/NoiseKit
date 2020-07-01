@@ -50,26 +50,15 @@ open class AHNContext: NSObject {
    */
   private init(device: MTLDevice?) {
     guard let device = device else {
-      fatalError("AHNoise: Error creating MTLDevice).")
+      fatalError("AHNoise: Error creating MTLDevice.")
     }
     self.device = device
-
-    if let library = device.makeDefaultLibrary() {
-      self.library = library
-
-    } else {
-      let source = """
-
-          #include <metal_stdlib>
-          using namespace metal;
-
-      """
-      library = try! device.makeLibrary(source: source, options: nil)
+    
+    guard let library = try? device.makeDefaultLibrary(bundle: Bundle.module) else {
+      fatalError("AHNoise: Error creating default library using Bundle.module.")
     }
-//    guard let library = device.makeDefaultLibrary() else{
-//      fatalError("AHNoise: Error creating default library.")
-//    }
-
+    self.library = library
+    
     commandQueue = device.makeCommandQueue()!
 
     var grad3 = [float3(1, 1, 0), float3(-1, 1, 0), float3(1, -1, 0), float3(-1, -1, 0), float3(1, 0, 1), float3(-1, 0, 1), float3(1, 0, -1), float3(-1, 0, -1), float3(0, 1, 1), float3(0, -1, 1), float3(0, 1, -1), float3(0, -1, -1)]
