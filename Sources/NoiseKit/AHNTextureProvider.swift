@@ -70,8 +70,7 @@ extension AHNTextureProvider {
   }
 
 //  ///- returns: A UIImage created from the output `MTLTexture` provided by the `texture()` function.
-  public func uiImage() -> Image? {
-    Image(named: "circle")
+  public func uiImage() -> NoiseKit.Image? {
     if !canUpdate() { return nil }
     guard let texture = texture(),
       let ciImage = CIImage(mtlTexture: texture, options: nil),
