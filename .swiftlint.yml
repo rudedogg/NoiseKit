@@ -1,0 +1,41 @@
+# disabled_rules: # rule identifiers to exclude from running
+opt_in_rules: # some rules are only opt-in
+  - empty_count
+  - contains_over_first_not_nil
+  - mark
+  - empty_string
+  - untyped_error_in_catch
+  - discouraged_optional_collection
+  - discouraged_optional_boolean
+  - discouraged_object_literal
+  - sorted_first_last
+  - override_in_extension
+  - private_action
+  - yoda_condition
+  - array_init
+  - attributes
+  # Find all the available rules by running:
+  # swiftlint rules
+included: # paths to include during linting. `--path` is ignored if present.
+  - .
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Pods
+  - Design
+  - ColorProducer/Generated/
+  - ColorProducerHelp
+#  - Source/ExcludedFolder
+#  - Source/ExcludedFile.swift
+
+line_length:
+  - 180 # warning
+  - 400 # error
+
+type_body_length:
+  - 300 # warning
+  - 400 # error
+
+file_length:
+  warning: 500
+  error: 1200
+
+indentation: 2
