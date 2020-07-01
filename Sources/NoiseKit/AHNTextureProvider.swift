@@ -1,6 +1,12 @@
 import CoreImage
 import Metal
 import simd
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
+
 
 // MARK: - AHNTextureProvider
 
@@ -15,7 +21,7 @@ public protocol AHNTextureProvider: AnyObject {
   func textureProvider() -> AHNTextureProvider?
 
   /// - returns: A `UIImage` created from the output `MTLTexture` provided by the `texture()` function.
-  func uiImage() -> NoiseKit.Image?
+  func uiImage() -> PlatformImage?
 
   /// - returns: The MTLSize of the the output `MTLTexture`. If no size has been explicitly set, the default value returned is `128x128` pixels.
   func textureSize() -> MTLSize
@@ -70,17 +76,12 @@ extension AHNTextureProvider {
   }
 
 //  ///- returns: A UIImage created from the output `MTLTexture` provided by the `texture()` function.
-  public func uiImage() -> NoiseKit.Image? {
+  public func uiImage() -> PlatformImage? {
     if !canUpdate() { return nil }
-    guard let texture = texture(),
-      let ciImage = CIImage(mtlTexture: texture, options: nil),
-      let cgImage = ciImage.cgImage else { return nil }
-
-    #if os(iOS) || os(watchOS) || os(tvOS)
-      return Image(cgImage: cgImage)
-    #elseif os(macOS)
-      return Image(cgImage: cgImage, size: NSSize(width: texture.width, height: texture.height))
-    #endif
+    guard let texture = texture() else {
+      return nil
+    }
+    return PlatformImage.imageWithMTLTexture(texture)
   }
 
   /// - returns: A UIImage created from the output `MTLTexture` provided by the `texture()` function.

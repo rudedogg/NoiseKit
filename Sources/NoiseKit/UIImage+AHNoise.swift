@@ -1,26 +1,18 @@
 #if os(macOS)
   import AppKit
-  public typealias Color = NSColor
-  public typealias Image = NSImage
+  public typealias PlatformColor = NSColor
+  public typealias PlatformImage = NSImage
 //  public typealias Size = NSSize
-#else
+#elseif os(iOS) || os(tvOS) || os(watchOS)
   import UIKit
-  public typealias Color = UIColor
-  public typealias Image = UIImage
+  public typealias PlatformColor = UIColor
+  public typealias PlatformImage = UIImage
   // public typealias Size = CGSize
 #endif
 
-// #if os(macOS)
-// import AppKit
-// typealias Image = NSImage
-// #elseif os(iOS) || os(tvOS) || os(watchOS)
-// import UIKit
-// typealias Image = UIImage
-// #endif
-
-extension Image {
+extension PlatformImage {
   /// Converts the input `MTLTexture` into a UIImage.
-  static func imageWithMTLTexture(_ texture: MTLTexture) -> Image {
+  static func imageWithMTLTexture(_ texture: MTLTexture) -> PlatformImage {
     assert(texture.pixelFormat == .rgba8Unorm, "Pixel format of texture must be MTLPixelFormatBGRA8Unorm to create UIImage")
 
     let imageByteCount: size_t = texture.width * texture.height * 4
@@ -58,9 +50,9 @@ extension Image {
     )
 
     #if os(macOS)
-      let image = Image(cgImage: imageRef!, size: CGSize(width: texture.width, height: texture.height))
+      let image = NSImage(cgImage: imageRef!, size: CGSize(width: texture.width, height: texture.height))
     #elseif os(iOS) || os(tvOS) || os(watchOS)
-      let image = Image(cgImage: imageRef!, scale: 0.0, orientation: Image.Orientation.downMirrored)
+      let image = UIImage(cgImage: imageRef!, scale: 0.0, orientation: PlatformImage.Orientation.downMirrored)
     #endif
     return image
   }
