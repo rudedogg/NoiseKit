@@ -1,3 +1,3 @@
 struct NoiseKit2 {
-    var text = "Hello, World!"
+  var text = "Hello, World!"
 }
