@@ -1,8 +1,9 @@
 import NoiseKit
 import SwiftUI
 
-struct NoiseKitSwiftUIExampleView: View {
+private struct NoiseKitSwiftUIExampleView: View {
   @State var noiseType: NoiseType = .voronoi
+  @State var textureSize: Float = 256.0
   @State var octaves: Float = 1.0
   @State var frequency: Float = 1.0
   @State var persistence: Float = 1.0
@@ -42,8 +43,8 @@ struct NoiseKitSwiftUIExampleView: View {
         noise = AHNGeneratorWave()
     }
 
-    noise.textureWidth = 256
-    noise.textureHeight = 256
+    noise.textureWidth = Int(textureSize)
+    noise.textureHeight = Int(textureSize)
 
     if let coherentNoise = noise as? AHNGeneratorCoherent {
       coherentNoise.octaves = Int(octaves)
@@ -77,6 +78,7 @@ struct NoiseKitSwiftUIExampleView: View {
         .pickerStyle(SegmentedPickerStyle())
         Toggle("Sphere Map:", isOn: $sphereMap)
         Toggle("Seamless:", isOn: $seamless)
+        DetailedSlider(value: $textureSize, bounds: 32...2048, label: "Texture Size:")
         DetailedSlider(value: $frequency, bounds: 0...100, label: "Frequency:")
         DetailedSlider(value: $octaves, bounds: 0...10, label: "Octaves:")
         DetailedSlider(value: $persistence, bounds: 0...10, label: "Persistence:")
