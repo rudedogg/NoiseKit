@@ -46,22 +46,21 @@ private struct NoiseKitSwiftUIExampleView: View {
     noise.textureWidth = Int(textureSize)
     noise.textureHeight = Int(textureSize)
 
-    if let coherentNoise = noise as? AHNGeneratorCoherent {
-      coherentNoise.octaves = Int(octaves)
-      coherentNoise.frequency = frequency
-      coherentNoise.persistence = persistence
-      coherentNoise.lacunarity = lacunarity
-      coherentNoise.seamless = seamless
-      coherentNoise.sphereMap = sphereMap
-    }
-
-    if let cylinderNoise = noise as? AHNGeneratorCylinder {
-      cylinderNoise.frequency = frequency
-    }
-
-    if let gradientBoxNoise = noise as? AHNGeneratorGradientBox {
-      gradientBoxNoise.xFallOff = xFallOff
-      gradientBoxNoise.yFallOff = yFallOff
+    switch noise {
+      case let coherentNoise as AHNGeneratorCoherent:
+        coherentNoise.octaves = Int(octaves)
+        coherentNoise.frequency = frequency
+        coherentNoise.persistence = persistence
+        coherentNoise.lacunarity = lacunarity
+        coherentNoise.seamless = seamless
+        coherentNoise.sphereMap = sphereMap
+      case let cylinderNoise as AHNGeneratorCylinder:
+        cylinderNoise.frequency = frequency
+      case let gradientBoxNoise as AHNGeneratorGradientBox:
+        gradientBoxNoise.xFallOff = xFallOff
+        gradientBoxNoise.yFallOff = yFallOff
+      default:
+        break
     }
 
     return noise.uiImage()
