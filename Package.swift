@@ -15,7 +15,7 @@ let package = Package(
     // Products define the executables and libraries a package produces, and make them visible to other packages.
     .library(
       name: "NoiseKit",
-      targets: ["NoiseKit"]
+      targets: ["NoiseKit", "Example"]
     ),
   ],
   dependencies: [
@@ -28,6 +28,10 @@ let package = Package(
     .target(
       name: "NoiseKit",
       dependencies: []
+    ),
+    .target(
+      name: "Example",
+      dependencies: ["NoiseKit"]
     ),
     .testTarget(
       name: "NoiseKitTests",
