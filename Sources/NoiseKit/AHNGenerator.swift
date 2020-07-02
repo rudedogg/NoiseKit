@@ -190,7 +190,7 @@ open class AHNGenerator: NSObject, AHNTextureProvider {
 
     let grey: [UInt8] = [128, 128, 128, 255]
     var textureBytes: [UInt8] = []
-    for _ in 0 ..< textureWidth * textureHeight {
+    for _ in 0..<textureWidth * textureHeight {
       textureBytes.append(contentsOf: grey)
     }
     defaultDisplaceTexture = context.device.makeTexture(descriptor: textureDescriptor)

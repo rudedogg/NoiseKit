@@ -1,5 +1,5 @@
-import SwiftUI
 import NoiseKit
+import SwiftUI
 
 struct NoiseKitSwiftUIExampleView: View {
   @State var noiseType: NoiseType = .voronoi
@@ -11,10 +11,10 @@ struct NoiseKitSwiftUIExampleView: View {
   @State var yFallOff: Float = 1.0
   @State var sphereMap: Bool = false
   @State var seamless: Bool = true
-  
+
   private func getNoiseImage() -> UIImage? {
     var noise: AHNGenerator
-    
+
     switch noiseType {
       case .billow:
         noise = AHNGeneratorBillow()
@@ -41,10 +41,10 @@ struct NoiseKitSwiftUIExampleView: View {
       case .wave:
         noise = AHNGeneratorWave()
     }
-    
+
     noise.textureWidth = 256
     noise.textureHeight = 256
-    
+
     if let coherentNoise = noise as? AHNGeneratorCoherent {
       coherentNoise.octaves = Int(octaves)
       coherentNoise.frequency = frequency
@@ -53,19 +53,19 @@ struct NoiseKitSwiftUIExampleView: View {
       coherentNoise.seamless = seamless
       coherentNoise.sphereMap = sphereMap
     }
-    
+
     if let cylinderNoise = noise as? AHNGeneratorCylinder {
       cylinderNoise.frequency = frequency
     }
-    
+
     if let gradientBoxNoise = noise as? AHNGeneratorGradientBox {
       gradientBoxNoise.xFallOff = xFallOff
       gradientBoxNoise.yFallOff = yFallOff
     }
-    
+
     return noise.uiImage()
   }
-  
+
   var body: some View {
     VStack {
       Form {

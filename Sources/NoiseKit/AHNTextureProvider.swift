@@ -2,11 +2,10 @@ import CoreImage
 import Metal
 import simd
 #if canImport(UIKit)
-import UIKit
+  import UIKit
 #elseif canImport(AppKit)
-import AppKit
+  import AppKit
 #endif
-
 
 // MARK: - AHNTextureProvider
 
@@ -162,8 +161,8 @@ extension AHNTextureProvider {
   public func allTexturePositions() -> [CGPoint] {
     let size = textureSize()
     var array: [CGPoint] = []
-    for i in 0 ..< size.width {
-      for j in 0 ..< size.height {
+    for i in 0..<size.width {
+      for j in 0..<size.height {
         array.append(CGPoint(x: CGFloat(j), y: CGFloat(i)))
       }
     }

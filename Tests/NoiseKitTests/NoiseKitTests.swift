@@ -6,10 +6,12 @@ final class NoiseKitTests: XCTestCase {
     let noise = AHNGeneratorConstant()
     XCTAssertNotNil(noise.uiImage())
   }
+
   func testSimplexNoiseOutputImageNotNil() {
     let noise = AHNGeneratorSimplex()
     XCTAssertNotNil(noise.uiImage())
   }
+
   static var allTests = [
     ("testConstantNoiseOutputImageNotNil", testConstantNoiseOutputImageNotNil),
     ("testSimplexNoiseOutputImageNotNil", testSimplexNoiseOutputImageNotNil),

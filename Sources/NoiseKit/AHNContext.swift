@@ -53,12 +53,12 @@ open class AHNContext: NSObject {
       fatalError("AHNoise: Error creating MTLDevice.")
     }
     self.device = device
-    
+
     guard let library = try? device.makeDefaultLibrary(bundle: Bundle.module) else {
       fatalError("AHNoise: Error creating default library using Bundle.module.")
     }
     self.library = library
-    
+
     commandQueue = device.makeCommandQueue()!
 
     var grad3 = [SIMD3<Float>(1, 1, 0), SIMD3<Float>(-1, 1, 0), SIMD3<Float>(1, -1, 0), SIMD3<Float>(-1, -1, 0), SIMD3<Float>(1, 0, 1), SIMD3<Float>(-1, 0, 1), SIMD3<Float>(1, 0, -1), SIMD3<Float>(-1, 0, -1), SIMD3<Float>(0, 1, 1), SIMD3<Float>(0, -1, 1), SIMD3<Float>(0, 1, -1), SIMD3<Float>(0, -1, -1)]
