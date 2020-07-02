@@ -1,6 +1,8 @@
+--swiftversion 5.3
 --header strip
 --stripunusedargs closure-only
 --indent 2
 --enable todos
 --enable spaceInsideComments
 --enable specifiers
+--indentcase true
