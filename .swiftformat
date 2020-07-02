@@ -6,3 +6,4 @@
 --enable spaceInsideComments
 --enable specifiers
 --indentcase true
+--nospaceoperators range
