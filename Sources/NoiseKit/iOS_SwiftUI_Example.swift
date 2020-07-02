@@ -19,73 +19,41 @@ struct NoiseKitSwiftUIExampleView: View {
   @State var lacunarity: Float = 1.0
   
   private func getNoiseImage() -> UIImage? {
+    var noise: AHNGenerator
+    
     switch noiseType {
       case .billow:
-        let noise = AHNGeneratorBillow()
-        noise.octaves = Int(octaves)
-        noise.frequency = frequency
-        noise.persistence = persistence
-        noise.lacunarity = lacunarity
-        noise.seamless = true
-        noise.sphereMap = true
-        noise.textureWidth = 256
-        noise.textureHeight = 256
-        return noise.uiImage()
+        noise = AHNGeneratorBillow()
       case .checker:
-        let noise = AHNGeneratorChecker()
-        noise.frequency = frequency
-        noise.textureWidth = 256
-        noise.textureHeight = 256
-        return noise.uiImage()
+        noise = AHNGeneratorChecker()
       case .cylinder:
-        let noise = AHNGeneratorCylinder()
-        noise.frequency = frequency
-        noise.textureWidth = 256
-        noise.textureHeight = 256
-        return noise.uiImage()
+        noise = AHNGeneratorCylinder()
       case .gradientBox:
-        let noise = AHNGeneratorGradientBox()
-        noise.textureWidth = 256
-        noise.textureHeight = 256
-        return noise.uiImage()
+        noise = AHNGeneratorGradientBox()
       case .ridgedMulti:
-        let noise = AHNGeneratorRidgedMulti()
-        noise.octaves = Int(octaves)
-        noise.frequency = frequency
-        noise.persistence = persistence
-        noise.lacunarity = lacunarity
-        noise.seamless = true
-        noise.textureWidth = 256
-        noise.textureHeight = 256
-        return noise.uiImage()
+        noise = AHNGeneratorRidgedMulti()
       case .simplex:
-        let noise = AHNGeneratorSimplex()
-        noise.octaves = Int(octaves)
-        noise.frequency = frequency
-        noise.persistence = persistence
-        noise.lacunarity = lacunarity
-        noise.seamless = true
-        noise.textureWidth = 256
-        noise.textureHeight = 256
-        return noise.uiImage()
+        noise = AHNGeneratorSimplex()
       case .voronoi:
-        let noise = AHNGeneratorVoronoi()
-        noise.octaves = Int(octaves)
-        noise.frequency = frequency
-        noise.persistence = persistence
-        noise.lacunarity = lacunarity
-        noise.seamless = true
-        noise.textureWidth = 256
-        noise.textureHeight = 256
-        return noise.uiImage()
+        noise = AHNGeneratorVoronoi()
       case .wave:
-        let noise = AHNGeneratorWave()
-        noise.frequency = frequency
-        noise.textureWidth = 256
-        noise.textureHeight = 256
-        return noise.uiImage()
-        
+        noise = AHNGeneratorWave()
     }
+    
+    noise.textureWidth = 256
+    noise.textureHeight = 256
+    
+    if let coherentNoise = noise as? AHNGeneratorCoherent {
+      coherentNoise.octaves = Int(octaves)
+      coherentNoise.frequency = frequency
+      coherentNoise.persistence = persistence
+      coherentNoise.lacunarity = lacunarity
+      coherentNoise.seamless = true
+      coherentNoise.sphereMap = true
+      return coherentNoise.uiImage()
+    }
+
+    return noise.uiImage()
   }
   
   var body: some View {
