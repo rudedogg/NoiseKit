@@ -50,7 +50,10 @@ struct NoiseKitSwiftUIExampleView: View {
       coherentNoise.lacunarity = lacunarity
       coherentNoise.seamless = true
       coherentNoise.sphereMap = true
-      return coherentNoise.uiImage()
+    }
+    
+    if let cylinderNoise = noise as? AHNGeneratorCylinder {
+      cylinderNoise.frequency = frequency
     }
 
     return noise.uiImage()
