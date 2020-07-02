@@ -3,10 +3,14 @@ import SwiftUI
 enum NoiseType: String, CaseIterable {
   case billow = "Billow"
   case checker = "Checker"
+  case constant = "Constant"
   case cylinder = "Cylinder"
   case gradientBox = "Gradient Box"
+  case gradientLinear = "Gradient Linear"
+  case gradientRadial = "Gradient Radial"
   case ridgedMulti = "Ridged Multi"
   case simplex = "Simplex"
+  case sphere = "Sphere"
   case voronoi = "Voronoi"
   case wave = "Wave"
 }
@@ -19,6 +23,8 @@ struct NoiseKitSwiftUIExampleView: View {
   @State var lacunarity: Float = 1.0
   @State var xFallOff: Float = 1.0
   @State var yFallOff: Float = 1.0
+  @State var sphereMap: Bool = false
+  @State var seamless: Bool = true
   
   private func getNoiseImage() -> UIImage? {
     var noise: AHNGenerator
@@ -28,14 +34,22 @@ struct NoiseKitSwiftUIExampleView: View {
         noise = AHNGeneratorBillow()
       case .checker:
         noise = AHNGeneratorChecker()
+      case .constant:
+        noise = AHNGeneratorConstant()
       case .cylinder:
         noise = AHNGeneratorCylinder()
       case .gradientBox:
         noise = AHNGeneratorGradientBox()
+      case .gradientLinear:
+        noise = AHNGeneratorGradientLinear()
+      case .gradientRadial:
+        noise = AHNGeneratorGradientRadial()
       case .ridgedMulti:
         noise = AHNGeneratorRidgedMulti()
       case .simplex:
         noise = AHNGeneratorSimplex()
+      case .sphere:
+        noise = AHNGeneratorSphere()
       case .voronoi:
         noise = AHNGeneratorVoronoi()
       case .wave:
@@ -50,8 +64,8 @@ struct NoiseKitSwiftUIExampleView: View {
       coherentNoise.frequency = frequency
       coherentNoise.persistence = persistence
       coherentNoise.lacunarity = lacunarity
-      coherentNoise.seamless = true
-      coherentNoise.sphereMap = true
+      coherentNoise.seamless = seamless
+      coherentNoise.sphereMap = sphereMap
     }
     
     if let cylinderNoise = noise as? AHNGeneratorCylinder {
@@ -75,15 +89,14 @@ struct NoiseKitSwiftUIExampleView: View {
           }
         }
         .pickerStyle(SegmentedPickerStyle())
-        VStack {
-          Text("Frequency:")
-          Slider(value: $frequency, in: 0...100.0, label: { Text("Frequency: ") })
-        }
-        Slider(value: $octaves, in: 0...10, step: 1.0, label: { Text("Octaves: ") })
-        Slider(value: $persistence, in: 0...10, minimumValueLabel: Text("0"), maximumValueLabel: Text("10"), label: { Text("Persistence: ") })
-        Slider(value: $lacunarity, in: 0...10, minimumValueLabel: Text("0"), maximumValueLabel: Text("10"), label: { Text("Lacunarity: ") })
-        Slider(value: $xFallOff, in: -10...10, minimumValueLabel: Text("0"), maximumValueLabel: Text("10"), label: { Text("xFallOff: ") })
-        Slider(value: $yFallOff, in: -10...10, minimumValueLabel: Text("0"), maximumValueLabel: Text("10"), label: { Text("yFallOff: ") })
+        Toggle("Sphere Map:", isOn: $sphereMap)
+        Toggle("Seamless:", isOn: $seamless)
+        DetailedSlider(value: $frequency, bounds: 0...100, label: "Frequency:")
+        DetailedSlider(value: $octaves, bounds: 0...10, label: "Octaves:")
+        DetailedSlider(value: $persistence, bounds: 0...10, label: "Persistence:")
+        DetailedSlider(value: $lacunarity, bounds: 0...10, label: "Lacunarity:")
+        DetailedSlider(value: $xFallOff, bounds: -10...10, label: "xFallOff:")
+        DetailedSlider(value: $yFallOff, bounds: -10...10, label: "yFallOff:")
       }
       Image(uiImage: getNoiseImage()!)
         .resizable(capInsets: EdgeInsets(), resizingMode: .tile)
