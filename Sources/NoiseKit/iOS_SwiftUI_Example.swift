@@ -17,6 +17,8 @@ struct NoiseKitSwiftUIExampleView: View {
   @State var frequency: Float = 1.0
   @State var persistence: Float = 1.0
   @State var lacunarity: Float = 1.0
+  @State var xFallOff: Float = 1.0
+  @State var yFallOff: Float = 1.0
   
   private func getNoiseImage() -> UIImage? {
     var noise: AHNGenerator
@@ -55,26 +57,33 @@ struct NoiseKitSwiftUIExampleView: View {
     if let cylinderNoise = noise as? AHNGeneratorCylinder {
       cylinderNoise.frequency = frequency
     }
-
+    
+    if let gradientBoxNoise = noise as? AHNGeneratorGradientBox {
+      gradientBoxNoise.xFallOff = xFallOff
+      gradientBoxNoise.yFallOff = yFallOff
+    }
+    
     return noise.uiImage()
   }
   
   var body: some View {
     VStack {
       Form {
-      Picker(selection: $noiseType, label: Text("Noise Type:")) {
-        ForEach(NoiseType.allCases, id: \.self) { noiseType in
-          Text(noiseType.rawValue)
+        Picker(selection: $noiseType, label: Text("Noise Type:")) {
+          ForEach(NoiseType.allCases, id: \.self) { noiseType in
+            Text(noiseType.rawValue)
+          }
         }
-      }
-      .pickerStyle(SegmentedPickerStyle())
+        .pickerStyle(SegmentedPickerStyle())
         VStack {
           Text("Frequency:")
           Slider(value: $frequency, in: 0...100.0, label: { Text("Frequency: ") })
         }
-        Slider(value: $octaves, in: 0...10, step: 1.0, label: { Text("Octaves: ")} )
-      Slider(value: $persistence, in: 0...10, minimumValueLabel: Text("0"), maximumValueLabel: Text("10"), label: { Text("Persistence: ")} )
-      Slider(value: $lacunarity, in: 0...10, minimumValueLabel: Text("0"), maximumValueLabel: Text("10"), label: { Text("Lacunarity: ")} )
+        Slider(value: $octaves, in: 0...10, step: 1.0, label: { Text("Octaves: ") })
+        Slider(value: $persistence, in: 0...10, minimumValueLabel: Text("0"), maximumValueLabel: Text("10"), label: { Text("Persistence: ") })
+        Slider(value: $lacunarity, in: 0...10, minimumValueLabel: Text("0"), maximumValueLabel: Text("10"), label: { Text("Lacunarity: ") })
+        Slider(value: $xFallOff, in: -10...10, minimumValueLabel: Text("0"), maximumValueLabel: Text("10"), label: { Text("xFallOff: ") })
+        Slider(value: $yFallOff, in: -10...10, minimumValueLabel: Text("0"), maximumValueLabel: Text("10"), label: { Text("yFallOff: ") })
       }
       Image(uiImage: getNoiseImage()!)
         .resizable(capInsets: EdgeInsets(), resizingMode: .tile)
