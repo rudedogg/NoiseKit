@@ -21,7 +21,7 @@ struct DetailedSlider<V>: View where V: BinaryFloatingPoint, V.Stride: BinaryFlo
       }
       .padding(.trailing, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
       .frame(width: 130.0)
-      Slider(value: $value, in: 0...100.0)
+      Slider(value: $value, in: bounds.lowerBound...bounds.upperBound)
       Text("\(defaultFormatter.string(for: self.value) ?? "#ERROR#")")
         .font(.system(.caption, design: .monospaced))
     }
