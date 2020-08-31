@@ -176,6 +176,15 @@ open class AHNGenerator: NSObject, AHNTextureProvider {
     commandEncoder.dispatchThreadgroups(threadGroups, threadsPerThreadgroup: threadGroupsCount)
     commandEncoder.endEncoding()
 
+    // macOS requires that you synchronize the texture to be able to access it from the CPU. Without the synchronize() call, the texture is blank on macOS.
+    #if os(macOS)
+    if internalTexture != nil,
+       let blitEncoder = commandBuffer.makeBlitCommandEncoder() {
+      blitEncoder.synchronize(resource: internalTexture!)
+      blitEncoder.endEncoding()
+    }
+    #endif
+    
     commandBuffer.commit()
     commandBuffer.waitUntilCompleted()
 
